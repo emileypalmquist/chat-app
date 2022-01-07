@@ -7,4 +7,4 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 User.create(username: 'kailey', password: "helloworld")
 
-Chat.create(initiator_id: User.first.id, receiver_id: User.last.id)
+# Chat.create(initiator_id: User.first.id, receiver_id: User.last.id)
