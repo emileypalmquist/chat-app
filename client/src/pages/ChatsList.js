@@ -7,11 +7,19 @@ function ChatsList({ user }) {
   const [chats, setChats] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
 
-  // useEffect(() => {
-  //   fetch("/chats")
-  //     .then((r) => r.json())
-  //     .then(setChats);
-  // }, []);
+  useEffect(() => {
+    fetch("/chats")
+      .then((r) => r.json())
+      .then(setChats);
+  }, []);
+
+  function other_users_name(chat) {
+    if (user.id === chat.receiver.id) {
+      return chat.initiator.username;
+    } else {
+      return chat.receiver.username;
+    }
+  }
 
   return (
     <Wrapper>
@@ -21,12 +29,12 @@ function ChatsList({ user }) {
             {chats.map((chat) => (
               <Chat key={chat.id} onClick={() => setSelectedChat(chat)}>
                 <Box>
-                  <h2>Other User's name from chat</h2>
+                  <h2>{other_users_name(chat)}</h2>
                 </Box>
               </Chat>
             ))}
           </ChatContainer>
-          <ChatInfo user={user} selectedChat={selectedChat} />
+          {selectedChat && <ChatInfo user={user} selectedChat={selectedChat} />}
         </ChatWrapper>
       ) : (
         <>
